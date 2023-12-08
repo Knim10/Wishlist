@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Wishlist</title>
+</head>
+<body>
+
+<h2>Create Wishlist</h2>
+
+<form action="/games/saveWishlist" method="post" th:object="${wishlist}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:field="*{username}" required>
+
+    <input type="submit" value="Save Wishlist">
+</form>
+
+<p th:text="${message}"></p>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show WishLists</title>
+</head>
+<body>
+    <h2>WishLists</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Selected Games</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="wishlist : ${wishlists}">
+                <td th:text="${wishlist.username}"></td>
+                <td>
+                    <ul>
+                        <li th:each="game : ${wishlist.selectedGames}" th:text="${game.name}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <a th:href="@{/wishlistDetail/{username}(username=${wishlist.username})}">View</a>
+                    <!-- <a th:href="@{/wishlist.edit/{username}(username=${wishlist.username})}">Edit</a> -->
+                    <a th:href="@{/deleteWishlist/{username}(username=${wishlist.username})}">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

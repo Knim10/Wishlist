@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Video Game</title>
+</head>
+<script type="text/javascript">
+    //form validation code will come here
+
+    function validate() {
+
+        // Regex string to ensure only alphanumeric data is entered
+        var regex = /^[\w ]+$/;
+
+        if(document.myForm.game.name.value == "") {
+            alert("Please provide a name!");
+            document.myForm.game.name.focus();
+            return false;
+        }
+
+         // Ensuring input is alphanumeric
+         if(!regex.test(document.myForm.game.name.value)) { 
+            alert("Error: input contains invalid characters");
+            myForm.game.name.focus();
+            return false;
+        }
+
+        if(document.myForm.game.store.value == "") {
+            alert("Please provide a store!");
+            document.myForm.game.store.focus();
+            return false;
+        }
+
+        if(!regex.test(document.myForm.game.store.value)) {
+            alert("Error: input contains invalid characters");
+            myForm.game.store.focus();
+            return false;
+        }
+
+        if(document.myForm.game.price.value == "") {
+            alert("Please provide a price!");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+        // Ensuring price is not outlandish
+        if(document.myForm.game.price.value > 100) {
+            alert("Please provide a price under 100$");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+        // Ensuring price is not outlandish
+        if(document.myForm.game.price.value < 0) {
+            alert("Please provide a price over 0$");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+    }
+
+</script>
+<body>
+    <h2>Edit Video Game</h2>
+    <form action="/editGame" method="post" th:object="${gameToEdit}" onsubmit="return(validate())">
+        
+        
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" required><br>
+
+        <label for="store">Store:</label>
+        <input type="text" id="store" name="store" th:field="*{store}" required><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" th:field="*{price}" step="0.01" required><br>
+
+        <button type="submit">Save Changes</button>
+    </form>
+    <br>
+    <a href="/showVideoGames">Back to Games</a>
+</body>
+</html>

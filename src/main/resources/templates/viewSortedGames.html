@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sorted Video Games</title>
+</head>
+<script type="text/javascript">
+    //form validation code will come here
+
+    function validate() {
+
+        // Regex string to ensure only alphanumeric data is entered
+        var regex = /^[\w ]+$/;
+
+        if(document.myForm.game.name.value == "") {
+            alert("Please provide a name!");
+            document.myForm.game.name.focus();
+            return false;
+        }
+
+         // Ensuring input is alphanumeric
+         if(!regex.test(document.myForm.game.name.value)) { 
+            alert("Error: input contains invalid characters");
+            myForm.game.name.focus();
+            return false;
+        }
+
+        if(document.myForm.game.store.value == "") {
+            alert("Please provide a store!");
+            document.myForm.game.store.focus();
+            return false;
+        }
+
+        if(!regex.test(document.myForm.game.store.value)) {
+            alert("Error: input contains invalid characters");
+            myForm.game.store.focus();
+            return false;
+        }
+
+        if(document.myForm.game.price.value == "") {
+            alert("Please provide a price!");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+        // Ensuring price is not outlandish
+        if(document.myForm.game.price.value > 100) {
+            alert("Please provide a price under 100$");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+        // Ensuring price is not outlandish
+        if(document.myForm.game.price.value < 0) {
+            alert("Please provide a price over 0$");
+            document.myForm.game.price.focus();
+            return false;
+        }
+
+    }
+
+</script>
+<body>
+
+    <h2>Sorted Video Games</h2>
+    <table border="1">
+        <tr>
+            <th>Select</th>
+            <th>Name</th>
+            <th>Store</th>
+            <th>Price</th>
+        </tr>
+        <form action="#" th:action="@{/addToWishlist}" method="post" onsubmit="return(validate())">
+            <tr th:each="game : ${videoGames}">
+                <td><input type="checkbox" th:value="${game.name}" name="selectedGames"/></td>
+                <td th:text="${game.name}"></td>
+                <td th:text="${game.store}"></td>
+                <td th:text="${game.price}"></td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label>Username: <input type="text" name="username" required/></label>
+                    <input type="submit" value="Add to Wishlist"/>
+                </td>
+            </tr>
+        </form>
+    </table>
+
+    <a href="/addGame">Create Video Games</a>
+    <a href="/viewWishlists">View Wishlists</a>
+</body>
+</html>

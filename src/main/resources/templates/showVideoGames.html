@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Video Games</title>
+</head>
+<script type="text/javascript">
+    //form validation code will come here
+
+    function validate() {
+
+        // Regex string to ensure only alphanumeric data is entered
+        var regex = /^[\w ]+$/;
+
+        if(document.myForm.username.value == "") {
+            alert("Please enter a username");
+            document.myForm.username.focus();
+            return false;
+        }
+
+        if(!regex.test(document.myForm.username.value)) {
+            alert("Please enter a valid username");
+            document.myForm.username.focus();
+            return false;
+        }
+
+    }
+
+</script>
+<body>
+    <h2>Video Games</h2>
+    <table border="1">
+        <tr>
+            <th>Select</th>
+            <th>Name</th>
+            <th>Store</th>
+            <th>Price</th>
+        </tr>
+        <form action="#" th:action="@{/addToWishlist}" method="post" onsubmit="return(validate())">
+            <tr th:each="game : ${videoGames}">
+                <td><input type="checkbox" th:value="${game.name}" name="selectedGames"/></td>
+                <td th:text="${game.name}"></td>
+                <td th:text="${game.store}"></td>
+                <td th:text="${game.price}"></td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <label>Username: <input type="text" name="username" required/></label>
+                    <input type="submit" value="Add to Wishlist"/>
+                </td>
+            </tr>
+            
+        </form>
+
+    </table>
+    <a href="/addGame">Create Video Games</a>
+    <a href="/sortGamesByPrice">Sort Games By Price</a>
+    <a href="/viewWishlists">View Wishlists</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit WishList</title>
+</head>
+<body>
+    <h2>Edit WishList</h2>
+    <form action="@{/editWishlist/{username}(username=${wishlist.username})}" method="post" th:object="${wishlist}">
+        <label>Username: <input type="text" th:field="*{username}" required/></label><br/>
+        <label>Selected Games:</label><br/>
+        <ul>
+            <li th:each="game : ${wishlist.selectedGames}" th:text="${game.name}"></li>
+        </ul>
+
+        <input type="submit" value="Save Changes"/>
+    </form>
+</body>
+</html>
