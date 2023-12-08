@@ -235,7 +235,19 @@ public class WebController {
     }
 
     /**
-     * binary sort for the wishlists list to sort it in ascending order from lowest price to highest price
+     * deletes the specified game from the game queue
+     * @param name
+     * @return
+     */
+    @GetMapping("/deleteGame/{name}")
+    public String deleteVideoGame(@PathVariable String name) {
+        VideoGame gameToDelete = getGameByName(name);
+        gameQueue.remove(gameToDelete);
+        return "redirect:/viewGames";
+    }
+
+    /**
+     * Binary sort for the wishlists list to sort it in ascending order from lowest price to highest price
      * @return html redirect link to the viewSortedGames html template
      */
     @GetMapping("/sortGamesByPrice")
@@ -321,6 +333,22 @@ public class WebController {
             }
         }
         return wishlist;
+    }
+
+    /**
+     * finds the selected game from the game queue based on the provided name
+     * @param name
+     * @return the selected game object based on its name field
+     */
+    public VideoGame getGameByName(String name) {
+        VideoGame selectedGame = new VideoGame();
+        for(int i = 0; i < gameQueue.size(); i++) {
+            if(gameQueue.get(i).getName().equalsIgnoreCase(name)) {
+                selectedGame = gameQueue.get(i);
+            }
+        }
+        
+        return selectedGame;
     }
 
 }

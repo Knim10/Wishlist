@@ -24,6 +24,11 @@
             return false;
         }
 
+        if(document.myForm.selectedGames.length == 0) {
+            alert("Please select a game");
+            return false;
+        }
+
     }
 
 </script>
@@ -35,6 +40,7 @@
             <th>Name</th>
             <th>Store</th>
             <th>Price</th>
+            <th>Actions</th>
         </tr>
         <form action="#" th:action="@{/addToWishlist}" method="post" onsubmit="return(validate())">
             <tr th:each="game : ${videoGames}">
@@ -42,6 +48,11 @@
                 <td th:text="${game.name}"></td>
                 <td th:text="${game.store}"></td>
                 <td th:text="${game.price}"></td>
+                <td>
+                <a th:href="@{/editGame/{name}(name=${game.name})}">Edit</a>
+                <a th:href="@{/deleteGame/{name}(name=${game.name})}">Edit</a>
+                </td>
+
             </tr>
             <tr>
                 <td colspan="4">
