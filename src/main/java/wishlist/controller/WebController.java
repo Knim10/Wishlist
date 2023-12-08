@@ -115,7 +115,13 @@ public class WebController {
      */
     public List<VideoGame> getSelectedGamesByNames(List<String> selectedGameNames) {
         List<VideoGame> selectedGameList = new LinkedList<VideoGame>();
-        selectedGameList.addAll(getSelectedGamesByNames(selectedGameNames, gameQueue));
+        for(String game1 : selectedGameNames) {
+            for(VideoGame game2 : gameQueue) {
+                if(game1.equalsIgnoreCase(game2.getName())) {
+                    selectedGameList.add(game2);
+                }
+            }
+        }
         return selectedGameList;
     }
 
@@ -298,25 +304,6 @@ public class WebController {
         }
 
         return game;
-    }
-
-    /**
-     * creates a new list of video games that contains video games from teh game queue that have matching names
-     * to the names in the selected video games names list
-     * @param selectedGamesNames
-     * @param games
-     * @return a list of VideoGame objects containing the selected games based on names
-     */
-    public List<VideoGame> getSelectedGamesByNames(List<String> selectedGamesNames, List<VideoGame> games) {
-        List<VideoGame> selectedGameList = new ArrayList<>();
-        for(VideoGame game1 : gameQueue) {
-            for(VideoGame game2 : games) {
-                if(game1.getName().equalsIgnoreCase(game2.getName())) {
-                    selectedGameList.add(game1);
-                }
-            }
-        }
-        return selectedGameList;
     }
 
     /**
